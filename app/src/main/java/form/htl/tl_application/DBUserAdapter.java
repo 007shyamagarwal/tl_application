@@ -20,6 +20,7 @@ public class DBUserAdapter {
         public static final String KEY_USERNAME= "username";
         public static final String KEY_PASSWORD = "password";
         private static final String TAG = "DBAdapter";
+        private static final String
 
         private static final String DATABASE_NAME = "usersdb";
         private static final String DATABASE_TABLE = "users";
