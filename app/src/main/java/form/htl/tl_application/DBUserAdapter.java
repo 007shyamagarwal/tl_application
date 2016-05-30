@@ -17,10 +17,11 @@ import android.util.Log;
 public class DBUserAdapter {
 
         public static final String KEY_ROWID = "_id";
-        public static final String KEY_USERNAME= "username";
+        public static final String KEY_NAME= "name";
         public static final String KEY_PASSWORD = "password";
         private static final String TAG = "DBAdapter";
-        private static final String
+        private static final String Email_id="email";
+        private static final String Mobile_no="mobile_no";
 
         private static final String DATABASE_NAME = "usersdb";
         private static final String DATABASE_TABLE = "users";
@@ -28,8 +29,8 @@ public class DBUserAdapter {
 
         private static final String DATABASE_CREATE =
                 "create table users (_id integer primary key autoincrement, "
-                        + "username text not null, "
-                        + "password text not null);";
+                        + "name text not null, "
+                        + "password text not null ,"+"email text not null ,"+"mobile_no text not null ) ;";
 
         private Context context = null;
         private DatabaseHelper DBHelper;
@@ -57,9 +58,9 @@ public class DBUserAdapter {
             @Override
             public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
             {
-                Log.w(TAG, "Upgrading database from version " + oldVersion
-                        + " to "
-                        + newVersion + ", which will destroy all old data");
+//                Log.w(TAG, "Upgrading database from version " + oldVersion
+  //                      + " to "
+    //                    + newVersion + ", which will destroy all old data");
                 db.execSQL("DROP TABLE IF EXISTS users");
                 onCreate(db);
             }
@@ -77,18 +78,20 @@ public class DBUserAdapter {
             DBHelper.close();
         }
 
-        public long AddUser(String username, String password)
+        public long AddUser(String name, String password ,String email,String mobile_no)
         {
             ContentValues initialValues = new ContentValues();
-            initialValues.put(KEY_USERNAME, username);
+            initialValues.put(KEY_NAME, name);
             initialValues.put(KEY_PASSWORD, password);
+            initialValues.put(Email_id,email);
+            initialValues.put(Mobile_no,mobile_no);
             return db.insert(DATABASE_TABLE, null, initialValues);
 
         }
 
-        public boolean Login(String username, String password) throws SQLException
+        public boolean Login(String user_name, String pass_word) throws SQLException
         {
-            Cursor mCursor = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE username=? AND password=?", new String[]{username,password});
+            Cursor mCursor = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE email = ? AND password = ?", new String[] {user_name, pass_word});
             if (mCursor != null) {
                 if(mCursor.getCount() > 0)
                 {

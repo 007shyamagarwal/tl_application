@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.support.design.widget.Snackbar;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editText_name, editText_password,editText_confirmpassword,editText_mobile,editText_email;
@@ -78,9 +79,31 @@ public class MainActivity extends AppCompatActivity {
                     pstatus=true;
                 }
                 if(pstatus==true) {
-                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+
+
+
+
+
+
+                    try{
+
+                            DBUserAdapter dbUser = new DBUserAdapter(MainActivity.this);
+                            dbUser.open();
+
+                                dbUser.AddUser(editText_name.getText().toString(),editText_password.getText().toString(),editText_email.getText().toString(),editText_mobile.getText().toString());
+                        Snackbar.make(findViewById(android.R.id.content), "ready to rollllll", Snackbar.LENGTH_LONG).show();
+                                dbUser.close();
+
+
+                    }catch(Exception e)
+                    {
+                        Toast.makeText(MainActivity.this,e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+ /*                   Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(i);
                     finish();
+    */
                 }
             }
         });
