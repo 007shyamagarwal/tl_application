@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                             dbUser.open();
 
                                 dbUser.AddUser(editText_name.getText().toString(),editText_password.getText().toString(),editText_email.getText().toString(),editText_mobile.getText().toString());
-                        Snackbar.make(findViewById(android.R.id.content), "ready to rollllll", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(findViewById(android.R.id.content), "Sign up completed \n Login now", Snackbar.LENGTH_LONG).show();
                                 dbUser.close();
 
 
